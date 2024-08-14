@@ -22,10 +22,13 @@ export const tuiConfig = <T extends { [key: string]: any }>(
   }
 
   const configStr = readFileSync(configFilePath, "utf-8");
+
+  const parseConfig = JSON.parse(configStr) as typeof initValues;
+
   const config = {
     ...initValues,
-    ...JSON.parse(configStr),
-  };
+    ...parseConfig,
+  } as T;
 
   const clear = () => {
     if (dirExists()) {
@@ -34,6 +37,7 @@ export const tuiConfig = <T extends { [key: string]: any }>(
   };
 
   const set = (key: string, value: any) => {
+    // @ts-ignore
     config[key] = value;
     writeFileSync(configFilePath, JSON.stringify(config, null, 2));
   };

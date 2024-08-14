@@ -2,7 +2,14 @@
   "name": "tui-config",
   "version": "0.0.0",
   "private": true,
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
+    "dev": "tsup src/index.ts --watch --dts --format cjs,esm --out-dir dist",
     "build": "tsup src/index.ts --minify --dts --format cjs,esm --out-dir dist",
     "test": "jest",
     "lint": "echo 'Add lint script here'"
